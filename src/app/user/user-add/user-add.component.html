@@ -34,11 +34,10 @@
 
   <p>
     <mat-form-field>
-      <mat-label>Phone number</mat-label>
       <input type="text" autocomplete="off"
              formControlName="phoneNumber"
              matInput
-      >
+       placeholder="Tel. +375xx-xxx-xx-xx">
     </mat-form-field>
   </p>
 
@@ -48,7 +47,7 @@
       <br>
       <mat-radio-button
         (change)="onLevelChange($event)"
-        *ngFor="let level of levels; let first = first"
+        *ngFor="let level of levels"
         [value]="level.title"
       >
         {{level.title}}

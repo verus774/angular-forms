@@ -45,6 +45,7 @@ export class UserAddComponent implements OnInit {
       ]],
       phoneNumber: ['', [
         Validators.required,
+        Validators.pattern(/^\+375(29|33|44|25|17)-\d{3}-\d{2}-\d{2}$/),
       ]],
       level: [this.levels[0].title, [
         Validators.required,
