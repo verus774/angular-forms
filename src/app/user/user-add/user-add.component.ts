@@ -22,12 +22,18 @@ export class UserAddComponent implements OnInit {
   }
 
   ngOnInit() {
+    // TODO
     this.areas = this.userService.getAreas();
 
     this.userService.getLevels().subscribe(levels => {
       this.levels = levels;
       this.skills = levels[0].skills;
       this.buildForm();
+
+      this.addUserForm.get('level').valueChanges.subscribe(levelTitle => {
+        this.skills = this.levels.find(level => level.title === levelTitle).skills;
+      });
+
     });
   }
 
@@ -73,8 +79,4 @@ export class UserAddComponent implements OnInit {
     }
   }
 
-  onLevelChange(event: MatCheckboxChange) {
-    const levelTitle = event.source.value;
-    this.skills = this.levels.find(level => level.title === levelTitle).skills;
-  }
 }
