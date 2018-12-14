@@ -44,14 +44,26 @@
 
   <p>
     <mat-radio-group formControlName="level">
+      <mat-label>Level</mat-label>
+      <br>
       <mat-radio-button
-        *ngFor="let level of userLevels"
-        [value]="level"
+        (change)="onLevelChange($event)"
+        *ngFor="let level of levels; let first = first"
+        [value]="level.title"
       >
-        {{level}}
+        {{level.title}}
       </mat-radio-button>
     </mat-radio-group>
   </p>
+
+  <div>
+    <mat-label>Skills</mat-label>
+    <div *ngFor="let skill of skills">
+      <mat-checkbox [value]="skill" (change)="onSkillChange($event, i)">
+        {{skill}}
+      </mat-checkbox>
+    </div>
+  </div>
 
   <p>
     <mat-slide-toggle #ready>

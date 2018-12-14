@@ -1,5 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatCheckboxChange} from '@angular/material';
+
+import {UserService} from '../user.service';
+import {ILevel} from '../ILevel';
 
 @Component({
   selector: 'app-user-add',
@@ -8,14 +12,23 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class UserAddComponent implements OnInit {
   public addUserForm: FormGroup;
+  public levels: ILevel[];
+  public skills: string[];
 
-  public userLevels: string[] = ['L1', 'L2', 'L3'];
   public areasToRelocate: string[] = ['USA', 'Spain', 'France', 'China', 'Japan'];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private userService: UserService) {
   }
 
   ngOnInit() {
+    this.userService.getLevels().subscribe(levels => {
+      this.levels = levels;
+      this.skills = levels[0].skills;
+      this.buildForm();
+    });
+  }
+
+  private buildForm() {
     this.addUserForm = this.fb.group({
       firstName: ['', [
         Validators.required,
@@ -25,21 +38,37 @@ export class UserAddComponent implements OnInit {
       ]],
       email: ['', [
         Validators.required,
-        // Validators.email,
+        Validators.email,
       ]],
       phoneNumber: ['', [
         Validators.required,
       ]],
-      level: [this.userLevels[0], [
+      level: [this.levels[0].title, [
         Validators.required,
       ]],
-      areasToRelocate: [[], [
+      areasToRelocate: [[]],
+      skills: this.fb.array([], [
         Validators.required,
-      ]],
+      ]),
     });
   }
 
   onSubmit() {
     // TODO: save user
+  }
+
+  onSkillChange(event: MatCheckboxChange, index: number) {
+    const skills = <FormArray>this.addUserForm.get('skills');
+
+    if (event.checked) {
+      skills.push(new FormControl(event.source.value));
+    } else {
+      skills.removeAt(index);
+    }
+  }
+
+  onLevelChange(event: MatCheckboxChange) {
+    const levelTitle = event.source.value;
+    this.skills = this.levels.find(level => level.title === levelTitle).skills;
   }
 }

@@ -1,4 +1,7 @@
-export const users = [
+import {IUser} from './IUser';
+import {ILevel} from './ILevel';
+
+export const users: IUser[] = [
   {
     id: '1',
     firstName: 'John',
@@ -28,5 +31,23 @@ export const users = [
     level: 'L3',
     skills: ['JavaScript', 'HTML', 'Git'],
     areasToRelocate: ['Japan', 'China'],
+  },
+];
+
+export const levels: ILevel[] = [
+  {
+    id: '1',
+    title: 'L1',
+    skills: ['CSS', 'HTML'],
+  },
+  {
+    id: '2',
+    title: 'L2',
+    skills: ['CSS', 'HTML', 'Git'],
+  },
+  {
+    id: '3',
+    title: 'L3',
+    skills: ['JavaScript', 'HTML', 'Git', 'NodeJS', 'Angular'],
   },
 ];

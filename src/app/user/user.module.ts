@@ -4,6 +4,7 @@ import {UserListComponent} from './user-list/user-list.component';
 import {UserAddComponent} from './user-add/user-add.component';
 import {
   MatButtonModule,
+  MatCheckboxModule,
   MatFormFieldModule,
   MatInputModule,
   MatRadioModule,
@@ -23,6 +24,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     MatRadioModule,
     MatSlideToggleModule,
     MatSelectModule,
+    MatCheckboxModule,
   ],
   exports: [
     UserListComponent,
