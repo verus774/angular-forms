@@ -3,7 +3,8 @@ import {BehaviorSubject, Observable, of} from 'rxjs';
 
 import {IUser} from './IUser';
 import {ILevel} from './ILevel';
-import {levels, users} from './data';
+import {IArea} from './IArea';
+import {areas, levels, users} from './data';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,9 @@ export class UserService {
 
   public getLevels(): Observable<ILevel[]> {
     return of(levels);
+  }
+
+  public getAreas(): Observable<IArea[]> {
+    return of(areas);
   }
 }

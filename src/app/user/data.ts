@@ -1,5 +1,6 @@
 import {IUser} from './IUser';
 import {ILevel} from './ILevel';
+import {IArea} from './IArea';
 
 export const users: IUser[] = [
   {
@@ -49,5 +50,32 @@ export const levels: ILevel[] = [
     id: '3',
     title: 'L3',
     skills: ['JavaScript', 'HTML', 'Git', 'NodeJS', 'Angular'],
+  },
+];
+
+export const areas: IArea[] = [
+  {
+    id: '1',
+    title: 'USA',
+  },
+  {
+    id: '2',
+    title: 'Spain',
+  },
+  {
+    id: '3',
+    title: 'France',
+  },
+  {
+    id: '4',
+    title: 'Poland',
+  },
+  {
+    id: '5',
+    title: 'Japan',
+  },
+  {
+    id: '6',
+    title: 'China',
   },
 ];

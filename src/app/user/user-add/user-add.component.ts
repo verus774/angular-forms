@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatCheckboxChange} from '@angular/material';
+import {Observable} from 'rxjs';
 
 import {UserService} from '../user.service';
 import {ILevel} from '../ILevel';
+import {IArea} from '../IArea';
 
 @Component({
   selector: 'app-user-add',
@@ -14,13 +16,14 @@ export class UserAddComponent implements OnInit {
   public addUserForm: FormGroup;
   public levels: ILevel[];
   public skills: string[];
-
-  public areasToRelocate: string[] = ['USA', 'Spain', 'France', 'China', 'Japan'];
+  public areas: Observable<IArea[]>;
 
   constructor(private fb: FormBuilder, private userService: UserService) {
   }
 
   ngOnInit() {
+    this.areas = this.userService.getAreas();
+
     this.userService.getLevels().subscribe(levels => {
       this.levels = levels;
       this.skills = levels[0].skills;
