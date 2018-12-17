@@ -37,7 +37,9 @@
       <input type="text" autocomplete="off"
              formControlName="phoneNumber"
              matInput
-       placeholder="Tel. +375xx-xxx-xx-xx">
+             placeholder="Tel. xx-xxx-xx-xx"
+             [textMask]="{mask: telMask}"
+      >
     </mat-form-field>
   </p>
 

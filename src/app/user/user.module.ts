@@ -12,6 +12,7 @@ import {
   MatSlideToggleModule
 } from '@angular/material';
 import {ReactiveFormsModule} from '@angular/forms';
+import {TextMaskModule} from 'angular2-text-mask';
 
 @NgModule({
   declarations: [UserListComponent, UserAddComponent],
@@ -25,6 +26,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     MatSlideToggleModule,
     MatSelectModule,
     MatCheckboxModule,
+    TextMaskModule,
   ],
   exports: [
     UserListComponent,

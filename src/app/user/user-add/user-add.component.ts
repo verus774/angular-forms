@@ -17,6 +17,7 @@ export class UserAddComponent implements OnInit {
   public levels: ILevel[];
   public skills: string[];
   public areas: Observable<IArea[]>;
+  public telMask: Array<string | RegExp>;
 
   constructor(private fb: FormBuilder, private userService: UserService) {
   }
@@ -26,6 +27,8 @@ export class UserAddComponent implements OnInit {
     this.areas = this.userService.getAreas();
 
     this.userService.getLevels().subscribe(levels => {
+      this.telMask = ['+', '3', '7', '5', /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
+
       this.levels = levels;
       this.skills = levels[0].skills;
       this.buildForm();
