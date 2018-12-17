@@ -4,8 +4,8 @@ import {MatCheckboxChange} from '@angular/material';
 import {forkJoin} from 'rxjs';
 
 import {UserService} from '../user.service';
-import {ILevel} from '../ILevel';
-import {IArea} from '../IArea';
+import {ILevel} from '../models/ILevel';
+import {IArea} from '../models/IArea';
 
 @Component({
   selector: 'app-user-add',

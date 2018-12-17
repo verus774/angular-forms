@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 
-import {IUser} from './IUser';
-import {ILevel} from './ILevel';
-import {IArea} from './IArea';
+import {IUser} from './models/IUser';
+import {ILevel} from './models/ILevel';
+import {IArea} from './models/IArea';
 import {areas, levels, users} from './data';
 
 @Injectable({

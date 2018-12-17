@@ -1,6 +1,6 @@
-import {IUser} from './IUser';
-import {ILevel} from './ILevel';
-import {IArea} from './IArea';
+import {IUser} from './models/IUser';
+import {ILevel} from './models/ILevel';
+import {IArea} from './models/IArea';
 
 export const users: IUser[] = [
   {
