@@ -71,7 +71,7 @@
   <p *ngIf="ready.checked">
     <mat-form-field>
       <mat-select placeholder="Areas to relocate" formControlName="areasToRelocate" multiple>
-        <mat-option *ngFor="let area of areas | async" [value]="area.title">{{area.title}}</mat-option>
+        <mat-option *ngFor="let area of areas" [value]="area.title">{{area.title}}</mat-option>
       </mat-select>
     </mat-form-field>
   </p>

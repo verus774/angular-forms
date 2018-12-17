@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatCheckboxChange} from '@angular/material';
-import {Observable} from 'rxjs';
+import {forkJoin} from 'rxjs';
 
 import {UserService} from '../user.service';
 import {ILevel} from '../ILevel';
@@ -16,27 +16,23 @@ export class UserAddComponent implements OnInit {
   public addUserForm: FormGroup;
   public levels: ILevel[];
   public skills: string[];
-  public areas: Observable<IArea[]>;
+  public areas: IArea[];
   public telMask: Array<string | RegExp>;
 
   constructor(private fb: FormBuilder, private userService: UserService) {
   }
 
   ngOnInit() {
-    // TODO
-    this.areas = this.userService.getAreas();
+    this.telMask = ['+', '3', '7', '5', /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
 
-    this.userService.getLevels().subscribe(levels => {
-      this.telMask = ['+', '3', '7', '5', /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
+    forkJoin(
+      this.userService.getAreas(),
+      this.userService.getLevels(),
+    ).subscribe(value => {
+      [this.areas, this.levels] = value;
 
-      this.levels = levels;
-      this.skills = levels[0].skills;
+      this.skills = this.levels[0].skills;
       this.buildForm();
-
-      this.addUserForm.get('level').valueChanges.subscribe(levelTitle => {
-        this.skills = this.levels.find(level => level.title === levelTitle).skills;
-      });
-
     });
   }
 
@@ -63,6 +59,10 @@ export class UserAddComponent implements OnInit {
       skills: this.fb.array([], [
         Validators.required,
       ]),
+    });
+
+    this.addUserForm.get('level').valueChanges.subscribe(levelTitle => {
+      this.skills = this.levels.find(level => level.title === levelTitle).skills;
     });
   }
 
