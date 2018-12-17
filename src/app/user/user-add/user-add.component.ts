@@ -40,9 +40,11 @@ export class UserAddComponent implements OnInit {
     this.addUserForm = this.fb.group({
       firstName: ['', [
         Validators.required,
+        Validators.minLength(3),
       ]],
       lastName: ['', [
         Validators.required,
+        Validators.minLength(3),
       ]],
       email: ['', [
         Validators.required,
@@ -64,6 +66,10 @@ export class UserAddComponent implements OnInit {
     this.addUserForm.get('level').valueChanges.subscribe(levelTitle => {
       this.skills = this.levels.find(level => level.title === levelTitle).skills;
     });
+  }
+
+  get form(): FormGroup {
+    return this.addUserForm;
   }
 
   onSubmit() {

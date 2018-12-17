@@ -9,6 +9,9 @@
              formControlName="firstName"
              matInput
       >
+
+      <mat-error *ngIf="form.get('firstName').hasError('required')">Required field</mat-error>
+      <mat-error *ngIf="form.get('firstName').hasError('minlength')">At least 3 characters</mat-error>
     </mat-form-field>
   </p>
 
@@ -19,6 +22,9 @@
              formControlName="lastName"
              matInput
       >
+
+      <mat-error *ngIf="form.get('lastName').hasError('required')">Required field</mat-error>
+      <mat-error *ngIf="form.get('lastName').hasError('minlength')">At least 3 characters</mat-error>
     </mat-form-field>
   </p>
 
@@ -29,6 +35,9 @@
              formControlName="email"
              matInput
       >
+
+      <mat-error *ngIf="form.get('email').hasError('required')">Required field</mat-error>
+      <mat-error *ngIf="form.get('email').hasError('email')">Invalid email address</mat-error>
     </mat-form-field>
   </p>
 
@@ -40,6 +49,9 @@
              placeholder="Tel. xx-xxx-xx-xx"
              [textMask]="{mask: telMask}"
       >
+
+      <mat-error *ngIf="form.get('phoneNumber').hasError('required')">Required field</mat-error>
+      <mat-error *ngIf="form.get('phoneNumber').hasError('pattern')">Invalid phone number</mat-error>
     </mat-form-field>
   </p>
 
@@ -60,6 +72,7 @@
         {{skill}}
       </mat-checkbox>
     </div>
+    <mat-error *ngIf="form.get('skills').hasError('required')">Required field</mat-error>
   </div>
 
   <p>
