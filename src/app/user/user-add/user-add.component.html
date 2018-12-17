@@ -68,7 +68,10 @@
   <div>
     <mat-label>Skills</mat-label>
     <div *ngFor="let skill of skills; let i = index">
-      <mat-checkbox [value]="skill" (change)="onSkillChange($event, i)">
+      <mat-checkbox [value]="skill"
+                    (change)="onSkillChange($event, i)"
+                    [checked]="form.get('skills').value.includes(skill)"
+      >
         {{skill}}
       </mat-checkbox>
     </div>
