@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatCheckboxChange} from '@angular/material';
+import {MatCheckboxChange, MatSlideToggleChange} from '@angular/material';
 import {forkJoin} from 'rxjs';
 
 import {UserService} from '../user.service';
@@ -104,4 +104,9 @@ export class UserAddComponent implements OnInit {
     }
   }
 
+  onReadyToRelocateChange(event: MatSlideToggleChange) {
+    if (!event.checked) {
+      this.form.get('areasToRelocate').reset([]);
+    }
+  }
 }
