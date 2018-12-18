@@ -1,99 +1,106 @@
-<h2>Add user</h2>
+<mat-card>
+  <h2>Add user</h2>
 
-<form (submit)="onSubmit()" [formGroup]="addUserForm" novalidate>
+  <form (submit)="onSubmit()" [formGroup]="addUserForm" novalidate>
 
-  <p>
-    <mat-form-field>
-      <mat-label>First name</mat-label>
-      <input type="text" autocomplete="off"
-             formControlName="firstName"
-             matInput
-      >
+    <p>
+      <mat-form-field>
+        <mat-label>First name</mat-label>
+        <input type="text" autocomplete="off"
+               formControlName="firstName"
+               matInput
+        >
 
-      <mat-error *ngIf="form.get('firstName').hasError('required')">Required field</mat-error>
-      <mat-error *ngIf="form.get('firstName').hasError('minlength')">At least {{form.get('firstName').errors.minlength.requiredLength}} characters</mat-error>
-    </mat-form-field>
-  </p>
+        <mat-error *ngIf="form.get('firstName').hasError('required')">Required field</mat-error>
+        <mat-error *ngIf="form.get('firstName').hasError('minlength')">At
+          least {{form.get('firstName').errors.minlength.requiredLength}} characters
+        </mat-error>
+      </mat-form-field>
+    </p>
 
-  <p>
-    <mat-form-field>
-      <mat-label>Last name</mat-label>
-      <input type="text" autocomplete="off"
-             formControlName="lastName"
-             matInput
-      >
+    <p>
+      <mat-form-field>
+        <mat-label>Last name</mat-label>
+        <input type="text" autocomplete="off"
+               formControlName="lastName"
+               matInput
+        >
 
-      <mat-error *ngIf="form.get('lastName').hasError('required')">Required field</mat-error>
-      <mat-error *ngIf="form.get('lastName').hasError('minlength')">At least {{form.get('lastName').errors.minlength.requiredLength}} characters</mat-error>
-    </mat-form-field>
-  </p>
+        <mat-error *ngIf="form.get('lastName').hasError('required')">Required field</mat-error>
+        <mat-error *ngIf="form.get('lastName').hasError('minlength')">At
+          least {{form.get('lastName').errors.minlength.requiredLength}} characters
+        </mat-error>
+      </mat-form-field>
+    </p>
 
-  <p>
-    <mat-form-field>
-      <mat-label>Email</mat-label>
-      <input type="text" autocomplete="off"
-             formControlName="email"
-             matInput
-      >
+    <p>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input type="text" autocomplete="off"
+               formControlName="email"
+               matInput
+        >
 
-      <mat-error *ngIf="form.get('email').hasError('required')">Required field</mat-error>
-      <mat-error *ngIf="form.get('email').hasError('email')">Invalid email address</mat-error>
-    </mat-form-field>
-  </p>
+        <mat-error *ngIf="form.get('email').hasError('required')">Required field</mat-error>
+        <mat-error *ngIf="form.get('email').hasError('email')">Invalid email address</mat-error>
+      </mat-form-field>
+    </p>
 
-  <p>
-    <mat-form-field>
-      <input type="text" autocomplete="off"
-             formControlName="phoneNumber"
-             matInput
-             placeholder="Tel. xx-xxx-xx-xx"
-             [textMask]="{mask: telMask}"
-      >
+    <p>
+      <mat-form-field>
+        <input type="text" autocomplete="off"
+               formControlName="phoneNumber"
+               matInput
+               placeholder="Tel. xx-xxx-xx-xx"
+               [textMask]="{mask: telMask}"
+        >
 
-      <mat-error *ngIf="form.get('phoneNumber').hasError('required')">Required field</mat-error>
-      <mat-error *ngIf="form.get('phoneNumber').hasError('pattern')">Invalid phone number</mat-error>
-    </mat-form-field>
-  </p>
+        <mat-error *ngIf="form.get('phoneNumber').hasError('required')">Required field</mat-error>
+        <mat-error *ngIf="form.get('phoneNumber').hasError('pattern')">Invalid phone number</mat-error>
+      </mat-form-field>
+    </p>
 
-  <p>
-    <mat-radio-group formControlName="level">
-      <mat-label>Level</mat-label>
-      <br>
-      <mat-radio-button *ngFor="let level of levels" [value]="level.title">
-        {{level.title}}
-      </mat-radio-button>
-    </mat-radio-group>
-  </p>
+    <p>
+      <mat-radio-group formControlName="level">
+        <mat-label>Level</mat-label>
+        <br>
+        <mat-radio-button *ngFor="let level of levels" [value]="level.title">
+          {{level.title}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </p>
 
-  <div>
-    <mat-label>Skills</mat-label>
-    <div *ngFor="let skill of skills; let i = index">
-      <mat-checkbox [value]="skill"
-                    (change)="onSkillChange($event, i)"
-                    [checked]="form.get('skills').value.includes(skill)"
-      >
-        {{skill}}
-      </mat-checkbox>
+    <div>
+      <mat-label>Skills</mat-label>
+      <div *ngFor="let skill of skills; let i = index">
+        <mat-checkbox [value]="skill"
+                      (change)="onSkillChange($event, i)"
+                      [checked]="form.get('skills').value.includes(skill)"
+        >
+          {{skill}}
+        </mat-checkbox>
+      </div>
+      <mat-error *ngIf="form.get('skills').hasError('required')">Required field</mat-error>
     </div>
-    <mat-error *ngIf="form.get('skills').hasError('required')">Required field</mat-error>
-  </div>
 
-  <p>
-    <mat-slide-toggle [checked]="!!currUser?.areasToRelocate.length" #ready>
-      Ready to relocate
-    </mat-slide-toggle>
-  </p>
+    <p>
+      <mat-slide-toggle [checked]="!!currUser?.areasToRelocate.length" #ready>
+        Ready to relocate
+      </mat-slide-toggle>
+    </p>
 
-  <p *ngIf="ready.checked">
-    <mat-form-field>
-      <mat-select placeholder="Areas to relocate" formControlName="areasToRelocate" multiple>
-        <mat-option *ngFor="let area of areas" [value]="area.title">{{area.title}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </p>
+    <p *ngIf="ready.checked">
+      <mat-form-field>
+        <mat-select placeholder="Areas to relocate" formControlName="areasToRelocate" multiple>
+          <mat-option *ngFor="let area of areas" [value]="area.title">{{area.title}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
 
-  <button mat-raised-button color="accent" [disabled]="!addUserForm.valid">Save</button>
+    <button mat-raised-button color="accent" [disabled]="!addUserForm.valid">Save</button>
 
-  <pre>{{ addUserForm.value | json }}</pre>
+    <pre>{{ addUserForm.value | json }}</pre>
 
-</form>
+  </form>
+
+</mat-card>

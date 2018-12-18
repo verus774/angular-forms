@@ -1,13 +1,5 @@
-<mat-card class="user-item" *ngFor="let user of users$ | async">
-  <p>
-    {{ user.firstName }}
-    <br>
-    {{ user.email }}
-  </p>
-  <mat-chip-list *ngIf="user.areasToRelocate.length">
-    <mat-chip color="primary" selected>RTR</mat-chip>
-  </mat-chip-list>
-  <p>
-    <button mat-raised-button color="warn" (click)="onEditClick(user)">Edit</button>
-  </p>
-</mat-card>
+<app-user-list-item
+  *ngFor="let user of users$ | async"
+  [user]="user"
+  (setCurrUser)="onSetCurrUser($event)"
+></app-user-list-item>

@@ -17,7 +17,7 @@ export class UserListComponent implements OnInit {
     this.users$ = this.userService.getUsers();
   }
 
-  onEditClick(user: IUser) {
+  onSetCurrUser(user: IUser) {
     this.userService.setCurrUser(user);
   }
 }
