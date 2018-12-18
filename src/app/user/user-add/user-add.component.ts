@@ -39,6 +39,7 @@ export class UserAddComponent implements OnInit {
       this.userService.getCurrUser().subscribe(user => {
         this.currUser = user;
         this.addUserForm.patchValue(user);
+        this.addUserForm.setControl('skills', this.fb.array(user.skills));
       });
     });
   }
