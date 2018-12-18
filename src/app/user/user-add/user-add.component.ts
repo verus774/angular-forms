@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatCheckboxChange, MatSlideToggleChange} from '@angular/material';
-import {forkJoin} from 'rxjs';
+import {forkJoin, Observable} from 'rxjs';
 
 import {UserService} from '../user.service';
 import {ILevel} from '../models/ILevel';
@@ -81,17 +81,19 @@ export class UserAddComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.currUser) {
-      this.userService.saveUser({...this.addUserForm.value, id: this.currUser.id}).subscribe(() => {
-        this.currUser = null;
-        this.addUserForm.reset();
-      });
+    const isEdit = !!this.currUser;
+    let submitUser: Observable<any>;
+
+    if (isEdit) {
+      submitUser = this.userService.saveUser({...this.addUserForm.value, id: this.currUser.id});
     } else {
-      this.userService.addUser(this.addUserForm.value).subscribe(() => {
-        this.currUser = null;
-        this.addUserForm.reset();
-      });
+      submitUser = this.userService.addUser(this.addUserForm.value);
     }
+
+    submitUser.subscribe(() => {
+      this.currUser = null;
+      this.addUserForm.reset();
+    });
   }
 
   onSkillChange(event: MatCheckboxChange, index: number) {
