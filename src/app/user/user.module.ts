@@ -4,7 +4,9 @@ import {UserListComponent} from './user-list/user-list.component';
 import {UserAddComponent} from './user-add/user-add.component';
 import {
   MatButtonModule,
+  MatCardModule,
   MatCheckboxModule,
+  MatChipsModule,
   MatFormFieldModule,
   MatInputModule,
   MatRadioModule,
@@ -26,6 +28,8 @@ import {TextMaskModule} from 'angular2-text-mask';
     MatSlideToggleModule,
     MatSelectModule,
     MatCheckboxModule,
+    MatCardModule,
+    MatChipsModule,
     TextMaskModule,
   ],
   exports: [

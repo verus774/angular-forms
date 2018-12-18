@@ -6,6 +6,7 @@ import {forkJoin} from 'rxjs';
 import {UserService} from '../user.service';
 import {ILevel} from '../models/ILevel';
 import {IArea} from '../models/IArea';
+import {IUser} from '../models/IUser';
 
 @Component({
   selector: 'app-user-add',
@@ -18,6 +19,7 @@ export class UserAddComponent implements OnInit {
   public skills: string[];
   public areas: IArea[];
   public telMask: Array<string | RegExp>;
+  public currUser: IUser;
 
   constructor(private fb: FormBuilder, private userService: UserService) {
   }
@@ -33,6 +35,11 @@ export class UserAddComponent implements OnInit {
 
       this.skills = this.levels[0].skills;
       this.buildForm();
+
+      this.userService.getCurrUser().subscribe(user => {
+        this.currUser = user;
+        this.addUserForm.patchValue(user);
+      });
     });
   }
 

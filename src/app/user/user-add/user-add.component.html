@@ -79,7 +79,7 @@
   </div>
 
   <p>
-    <mat-slide-toggle #ready>
+    <mat-slide-toggle [checked]="!!currUser?.areasToRelocate.length" #ready>
       Ready to relocate
     </mat-slide-toggle>
   </p>

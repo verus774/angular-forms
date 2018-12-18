@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 
 import {IUser} from './models/IUser';
 import {ILevel} from './models/ILevel';
@@ -12,10 +12,20 @@ import {areas, levels, users} from './data';
 export class UserService {
   private initUsers = users;
   private id = 10;
+
   private usersSource = new BehaviorSubject<IUser[]>(this.initUsers);
+  private currUserSource = new Subject<IUser>();
 
   public getUsers(): Observable<IUser[]> {
     return this.usersSource.asObservable();
+  }
+
+  public getCurrUser(): Observable<IUser> {
+    return this.currUserSource.asObservable();
+  }
+
+  public setCurrUser(user: IUser): void {
+    this.currUserSource.next(user);
   }
 
   public addUser(user: IUser): Observable<any> {
