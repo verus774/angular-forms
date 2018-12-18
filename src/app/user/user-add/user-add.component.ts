@@ -81,9 +81,17 @@ export class UserAddComponent implements OnInit {
   }
 
   onSubmit() {
-    this.userService.addUser(this.addUserForm.value).subscribe(() => {
-      this.addUserForm.reset();
-    });
+    if (this.currUser) {
+      this.userService.saveUser({...this.addUserForm.value, id: this.currUser.id}).subscribe(() => {
+        this.currUser = null;
+        this.addUserForm.reset();
+      });
+    } else {
+      this.userService.addUser(this.addUserForm.value).subscribe(() => {
+        this.currUser = null;
+        this.addUserForm.reset();
+      });
+    }
   }
 
   onSkillChange(event: MatCheckboxChange, index: number) {

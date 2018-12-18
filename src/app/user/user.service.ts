@@ -4,16 +4,16 @@ import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 import {IUser} from './models/IUser';
 import {ILevel} from './models/ILevel';
 import {IArea} from './models/IArea';
-import {areas, levels, users} from './data';
+import {areas, levels, users as initUsers} from './data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private initUsers = users;
+  private users = initUsers;
   private id = 10;
 
-  private usersSource = new BehaviorSubject<IUser[]>(this.initUsers);
+  private usersSource = new BehaviorSubject<IUser[]>(this.users);
   private currUserSource = new Subject<IUser>();
 
   public getUsers(): Observable<IUser[]> {
@@ -29,7 +29,20 @@ export class UserService {
   }
 
   public addUser(user: IUser): Observable<any> {
-    this.usersSource.next([...this.initUsers, {...user, id: (++this.id).toString()}]);
+    this.users.push({...user, id: (++this.id).toString()});
+    this.usersSource.next(this.users);
+    return of({success: true});
+  }
+
+  saveUser(newUser: IUser): Observable<any> {
+    this.users = this.users.map(user => {
+      if (user.id === newUser.id) {
+        return newUser;
+      }
+      return user;
+    });
+
+    this.usersSource.next(this.users);
     return of({success: true});
   }
 

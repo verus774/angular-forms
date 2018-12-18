@@ -31,6 +31,16 @@ export const users: IUser[] = [
     phoneNumber: '+37529-777-77-77',
     level: 'L3',
     skills: ['JavaScript', 'HTML', 'Git'],
+    areasToRelocate: [],
+  },
+  {
+    id: '4',
+    firstName: 'Robert',
+    lastName: 'Smith',
+    email: 'rss@epam.com',
+    phoneNumber: '+37529-777-77-77',
+    level: 'L3',
+    skills: ['JavaScript', 'HTML', 'Git'],
     areasToRelocate: ['Japan', 'China'],
   },
 ];
