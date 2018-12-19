@@ -70,17 +70,11 @@
       </mat-radio-group>
     </p>
 
-    <div>
+    <div formArrayName="skills">
       <mat-label>Skills</mat-label>
       <div *ngFor="let skill of skills; let i = index">
-        <mat-checkbox [value]="skill"
-                      (change)="onSkillChange($event, i)"
-                      [checked]="form.get('skills').value.includes(skill)"
-        >
-          {{skill}}
-        </mat-checkbox>
+        <mat-checkbox [formControlName]="i">{{skill}}</mat-checkbox>
       </div>
-      <mat-error *ngIf="form.get('skills').hasError('required')">Required field</mat-error>
     </div>
 
     <p>

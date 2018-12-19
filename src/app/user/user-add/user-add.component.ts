@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatCheckboxChange, MatSlideToggleChange} from '@angular/material';
+import {MatSlideToggleChange} from '@angular/material';
 import {forkJoin, Observable} from 'rxjs';
 
 import {UserService} from '../user.service';
@@ -39,7 +39,19 @@ export class UserAddComponent implements OnInit {
       this.userService.getCurrUser().subscribe(user => {
         this.currUser = user;
         this.addUserForm.patchValue(user);
-        this.addUserForm.setControl('skills', this.fb.array(user.skills));
+
+        this.setSkillsByLevel(user.level);
+
+        const skillCbs: FormControl[] = this.skills.map(skill => {
+          const isMatchedSkill = user.skills.includes(skill);
+
+          if (isMatchedSkill) {
+            return new FormControl(true);
+          }
+          return new FormControl(false);
+        });
+
+        this.addUserForm.setControl('skills', this.fb.array(skillCbs));
       });
     });
   }
@@ -71,9 +83,18 @@ export class UserAddComponent implements OnInit {
       ]),
     });
 
-    this.addUserForm.get('level').valueChanges.subscribe(levelTitle => {
-      this.skills = this.levels.find(level => level.title === levelTitle).skills;
+    const formArray = this.addUserForm.get('skills') as FormArray;
+    this.skills.forEach(x => formArray.push(new FormControl(false)));
+
+    this.addUserForm.get('level').valueChanges.subscribe(level => {
+      this.setSkillsByLevel(level);
+      const skillCbs: FormControl[] = this.skills.map(() => new FormControl(false));
+      this.addUserForm.setControl('skills', this.fb.array(skillCbs));
     });
+  }
+
+  private setSkillsByLevel(level: string): void {
+    this.skills = this.levels.find(item => item.title === level).skills;
   }
 
   get form(): FormGroup {
@@ -81,29 +102,22 @@ export class UserAddComponent implements OnInit {
   }
 
   onSubmit() {
+    const skills = this.skills.filter((x, i) => !!this.addUserForm.value.skills[i]);
     const isEdit = !!this.currUser;
     let submitUser: Observable<any>;
 
     if (isEdit) {
-      submitUser = this.userService.saveUser({...this.addUserForm.value, id: this.currUser.id});
+      const updatedUser = {...this.addUserForm.value, id: this.currUser.id, skills};
+      submitUser = this.userService.saveUser(updatedUser);
     } else {
-      submitUser = this.userService.addUser(this.addUserForm.value);
+      const newUser = {...this.addUserForm.value, skills};
+      submitUser = this.userService.addUser(newUser);
     }
 
     submitUser.subscribe(() => {
       this.currUser = null;
       this.addUserForm.reset();
     });
-  }
-
-  onSkillChange(event: MatCheckboxChange, index: number) {
-    const skills = <FormArray>this.addUserForm.get('skills');
-
-    if (event.checked) {
-      skills.push(new FormControl(event.source.value));
-    } else {
-      skills.removeAt(index);
-    }
   }
 
   onReadyToRelocateChange(event: MatSlideToggleChange) {

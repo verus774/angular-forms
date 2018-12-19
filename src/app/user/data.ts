@@ -20,7 +20,7 @@ export const users: IUser[] = [
     email: '42@gmail.com',
     phoneNumber: '+37529-424-42-42',
     level: 'L2',
-    skills: ['CSS', 'HTML', 'Git'],
+    skills: ['CSS', 'Git'],
     areasToRelocate: ['France', 'Poland'],
   },
   {
@@ -30,7 +30,7 @@ export const users: IUser[] = [
     email: 'rss@epam.com',
     phoneNumber: '+37529-777-77-77',
     level: 'L3',
-    skills: ['JavaScript', 'HTML', 'Git'],
+    skills: ['JavaScript', 'HTML', 'Angular'],
     areasToRelocate: [],
   },
   {
