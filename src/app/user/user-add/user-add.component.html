@@ -75,6 +75,7 @@
       <div *ngFor="let skill of skills; let i = index">
         <mat-checkbox [formControlName]="i">{{skill}}</mat-checkbox>
       </div>
+      <mat-error *ngIf="form.get('skills').hasError('oneSkillRequired') && form.get('skills').dirty">At least one skill</mat-error>
     </div>
 
     <p>
@@ -95,9 +96,6 @@
     </p>
 
     <button mat-raised-button color="accent" [disabled]="!addUserForm.valid">Save</button>
-
-    <pre>{{ addUserForm.value | json }}</pre>
-
   </form>
 
 </mat-card>

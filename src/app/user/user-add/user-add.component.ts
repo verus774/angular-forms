@@ -7,6 +7,7 @@ import {UserService} from '../user.service';
 import {ILevel} from '../models/ILevel';
 import {IArea} from '../models/IArea';
 import {IUser} from '../models/IUser';
+import {skillsValidator} from './skills.validator';
 
 @Component({
   selector: 'app-user-add',
@@ -39,19 +40,8 @@ export class UserAddComponent implements OnInit {
       this.userService.getCurrUser().subscribe(user => {
         this.currUser = user;
         this.addUserForm.patchValue(user);
-
         this.setSkillsByLevel(user.level);
-
-        const skillCbs: FormControl[] = this.skills.map(skill => {
-          const isMatchedSkill = user.skills.includes(skill);
-
-          if (isMatchedSkill) {
-            return new FormControl(true);
-          }
-          return new FormControl(false);
-        });
-
-        this.addUserForm.setControl('skills', this.fb.array(skillCbs));
+        this.addUserForm.setControl('skills', this.buildSkills(user.skills));
       });
     });
   }
@@ -78,19 +68,24 @@ export class UserAddComponent implements OnInit {
         Validators.required,
       ]],
       areasToRelocate: [[]],
-      skills: this.fb.array([], [
-        Validators.required,
-      ]),
+      skills: this.buildSkills(),
     });
-
-    const formArray = this.addUserForm.get('skills') as FormArray;
-    this.skills.forEach(x => formArray.push(new FormControl(false)));
 
     this.addUserForm.get('level').valueChanges.subscribe(level => {
       this.setSkillsByLevel(level);
-      const skillCbs: FormControl[] = this.skills.map(() => new FormControl(false));
-      this.addUserForm.setControl('skills', this.fb.array(skillCbs));
+      this.addUserForm.setControl('skills', this.buildSkills());
     });
+  }
+
+  private buildSkills(userSkills?: string[]): FormArray {
+    const skillsControls = this.skills.map(skill => {
+      if (userSkills && userSkills.length) {
+        return new FormControl(userSkills.includes(skill));
+      }
+      return new FormControl(false);
+    });
+
+    return this.fb.array(skillsControls, skillsValidator);
   }
 
   private setSkillsByLevel(level: string): void {
