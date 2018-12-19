@@ -10,8 +10,13 @@ import {IUser} from '../models/IUser';
 export class UserListItemComponent {
   @Input() public user: IUser;
   @Output() setCurrUser = new EventEmitter<IUser>();
+  @Output() removeUser = new EventEmitter<string>();
 
   onEditClick(user: IUser) {
     this.setCurrUser.emit(user);
+  }
+
+  onRemoveClick(id: string) {
+    this.removeUser.emit(id);
   }
 }

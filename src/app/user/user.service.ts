@@ -34,7 +34,13 @@ export class UserService {
     return of({success: true});
   }
 
-  saveUser(newUser: IUser): Observable<any> {
+  public removeUser(id: string): Observable<any> {
+    this.users = this.users.filter(user => user.id !== id);
+    this.usersSource.next(this.users);
+    return of({success: true});
+  }
+
+  public saveUser(newUser: IUser): Observable<any> {
     this.users = this.users.map(user => {
       if (user.id === newUser.id) {
         return newUser;

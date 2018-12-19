@@ -8,6 +8,7 @@ import {
   MatCheckboxModule,
   MatChipsModule,
   MatFormFieldModule,
+  MatIconModule,
   MatInputModule,
   MatRadioModule,
   MatSelectModule,
@@ -31,6 +32,7 @@ import {UserListItemComponent} from './user-list-item/user-list-item.component';
     MatCheckboxModule,
     MatCardModule,
     MatChipsModule,
+    MatIconModule,
     TextMaskModule,
   ],
   exports: [

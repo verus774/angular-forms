@@ -20,4 +20,8 @@ export class UserListComponent implements OnInit {
   onSetCurrUser(user: IUser) {
     this.userService.setCurrUser(user);
   }
+
+  onRemoveUser(id: string) {
+    this.userService.removeUser(id);
+  }
 }

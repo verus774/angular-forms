@@ -2,4 +2,5 @@
   *ngFor="let user of users$ | async"
   [user]="user"
   (setCurrUser)="onSetCurrUser($event)"
+  (removeUser)="onRemoveUser($event)"
 ></app-user-list-item>

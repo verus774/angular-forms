@@ -4,10 +4,17 @@
     <br>
     {{ user.email }}
   </p>
+
   <mat-chip-list *ngIf="user.areasToRelocate.length">
     <mat-chip color="primary" selected>RTR</mat-chip>
   </mat-chip-list>
-  <p>
-    <button mat-raised-button color="warn" (click)="onEditClick(user)">Edit</button>
-  </p>
+
+  <div>
+    <button mat-raised-button color="accent" (click)="onEditClick(user)">Edit</button>
+
+    <button mat-icon-button color="warn" (click)="onRemoveClick(user.id)">
+      <mat-icon aria-label="Remove user">delete</mat-icon>
+    </button>
+  </div>
+
 </mat-card>
