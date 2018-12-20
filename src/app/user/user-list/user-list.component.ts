@@ -13,15 +13,15 @@ export class UserListComponent implements OnInit {
 
   constructor(private userService: UserService) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.users$ = this.userService.getUsers();
   }
 
-  onSetCurrUser(user: IUser) {
+  private onSetCurrUser(user: IUser): void {
     this.userService.setCurrUser(user);
   }
 
-  onRemoveUser(id: string) {
+  private onRemoveUser(id: string): void {
     this.userService.removeUser(id);
   }
 }

@@ -26,7 +26,7 @@ export class UserAddComponent implements OnInit {
   constructor(private fb: FormBuilder, private userService: UserService) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.telMask = ['+', '3', '7', '5', /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
 
     forkJoin(
@@ -106,11 +106,11 @@ export class UserAddComponent implements OnInit {
     this.skills = this.levels.find(item => item.title === level).skills;
   }
 
-  get form(): FormGroup {
+  public get form(): FormGroup {
     return this.addUserForm;
   }
 
-  onSubmit(): void {
+  private onSubmit(): void {
     const skills = this.skills.filter((x, i) => !!this.addUserForm.value.skills[i]);
     const isEdit = !!this.currUser;
     let submitUser: Observable<any>;
@@ -131,12 +131,12 @@ export class UserAddComponent implements OnInit {
     this.addUserForm.reset(this.buildForm().value);
   }
 
-  onClearClick(event: MouseEvent): void {
+  private onClearClick(event: MouseEvent): void {
     event.preventDefault();
     this.clearForm();
   }
 
-  onResetClick(event: MouseEvent): void {
+  private onResetClick(event: MouseEvent): void {
     event.preventDefault();
 
     this.addUserForm.reset(this.currUser);

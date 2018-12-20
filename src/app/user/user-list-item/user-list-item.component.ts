@@ -12,11 +12,11 @@ export class UserListItemComponent {
   @Output() private setCurrUser = new EventEmitter<IUser>();
   @Output() private removeUser = new EventEmitter<string>();
 
-  onEditClick(user: IUser) {
+  private onEditClick(user: IUser) {
     this.setCurrUser.emit(user);
   }
 
-  onRemoveClick(id: string) {
+  private onRemoveClick(id: string) {
     this.removeUser.emit(id);
   }
 }
