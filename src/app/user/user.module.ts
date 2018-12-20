@@ -19,7 +19,11 @@ import {TextMaskModule} from 'angular2-text-mask';
 import {UserListItemComponent} from './user-list-item/user-list-item.component';
 
 @NgModule({
-  declarations: [UserListComponent, UserAddComponent, UserListItemComponent],
+  declarations: [
+    UserListComponent,
+    UserAddComponent,
+    UserListItemComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,

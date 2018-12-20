@@ -7,6 +7,7 @@ import {ILevel} from '../models/ILevel';
 import {IArea} from '../models/IArea';
 import {IUser} from '../models/IUser';
 import {skillsValidator} from './skills.validator';
+import {MaterialInputErrorStateMatcher} from './material-input-error-state-matcher';
 
 @Component({
   selector: 'app-user-add',
@@ -20,11 +21,12 @@ export class UserAddComponent implements OnInit {
   public areas: IArea[];
   public telMask: Array<string | RegExp>;
   public currUser: IUser;
+  public matcher = new MaterialInputErrorStateMatcher();
 
   constructor(private fb: FormBuilder, private userService: UserService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.telMask = ['+', '3', '7', '5', /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
 
     forkJoin(
@@ -87,7 +89,7 @@ export class UserAddComponent implements OnInit {
     return this.fb.array(skillsControls, skillsValidator);
   }
 
-  private subscribeControls() {
+  private subscribeControls(): void {
     this.addUserForm.get('level').valueChanges.subscribe(level => {
       this.setSkillsByLevel(level);
       this.addUserForm.setControl('skills', this.buildSkills());
@@ -108,7 +110,7 @@ export class UserAddComponent implements OnInit {
     return this.addUserForm;
   }
 
-  onSubmit() {
+  onSubmit(): void {
     const skills = this.skills.filter((x, i) => !!this.addUserForm.value.skills[i]);
     const isEdit = !!this.currUser;
     let submitUser: Observable<any>;
@@ -124,17 +126,17 @@ export class UserAddComponent implements OnInit {
     submitUser.subscribe(() => this.clearForm());
   }
 
-  private clearForm() {
+  private clearForm(): void {
     this.currUser = null;
     this.addUserForm.reset(this.buildForm().value);
   }
 
-  onClearClick(event: MouseEvent) {
+  onClearClick(event: MouseEvent): void {
     event.preventDefault();
     this.clearForm();
   }
 
-  onResetClick(event: MouseEvent) {
+  onResetClick(event: MouseEvent): void {
     event.preventDefault();
 
     this.addUserForm.reset(this.currUser);
