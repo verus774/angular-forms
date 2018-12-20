@@ -1,6 +1,5 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatSlideToggle, MatSlideToggleChange} from '@angular/material';
 import {forkJoin, Observable} from 'rxjs';
 
 import {UserService} from '../user.service';
@@ -15,8 +14,6 @@ import {skillsValidator} from './skills.validator';
   styleUrls: ['./user-add.component.css']
 })
 export class UserAddComponent implements OnInit {
-  @ViewChild('ready') ready: MatSlideToggle;
-
   public addUserForm: FormGroup;
   public levels: ILevel[];
   public skills: string[];
@@ -37,12 +34,9 @@ export class UserAddComponent implements OnInit {
       [this.areas, this.levels] = value;
 
       this.skills = this.levels[0].skills;
-      this.addUserForm = this.buildForm();
 
-      this.addUserForm.get('level').valueChanges.subscribe(level => {
-        this.setSkillsByLevel(level);
-        this.addUserForm.setControl('skills', this.buildSkills());
-      });
+      this.addUserForm = this.buildForm();
+      this.subscribeControls();
 
       this.userService.getCurrUser().subscribe(user => {
         this.currUser = user;
@@ -74,6 +68,9 @@ export class UserAddComponent implements OnInit {
       level: [this.levels[0].title, [
         Validators.required,
       ]],
+      isReadyToRelocate: [false, [
+        Validators.required,
+      ]],
       areasToRelocate: [[]],
       skills: this.buildSkills(),
     });
@@ -88,6 +85,19 @@ export class UserAddComponent implements OnInit {
     });
 
     return this.fb.array(skillsControls, skillsValidator);
+  }
+
+  private subscribeControls() {
+    this.addUserForm.get('level').valueChanges.subscribe(level => {
+      this.setSkillsByLevel(level);
+      this.addUserForm.setControl('skills', this.buildSkills());
+    });
+
+    this.addUserForm.get('isReadyToRelocate').valueChanges.subscribe(isReadyToRelocate => {
+      if (!isReadyToRelocate) {
+        this.addUserForm.get('areasToRelocate').reset([]);
+      }
+    });
   }
 
   private setSkillsByLevel(level: string): void {
@@ -117,17 +127,10 @@ export class UserAddComponent implements OnInit {
     });
   }
 
-  onReadyToRelocateChange(event: MatSlideToggleChange) {
-    if (!event.checked) {
-      this.form.get('areasToRelocate').reset([]);
-    }
-  }
-
   onClearClick(event: MouseEvent) {
     event.preventDefault();
 
     this.currUser = null;
-    this.ready.checked = false;
     this.addUserForm.reset(this.buildForm().value);
   }
 

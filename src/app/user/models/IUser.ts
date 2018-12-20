@@ -6,5 +6,6 @@ export interface IUser {
   phoneNumber: string;
   level: string;
   skills: string[];
+  isReadyToRelocate: boolean;
   areasToRelocate: string[];
 }

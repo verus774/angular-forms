@@ -11,6 +11,7 @@ export const users: IUser[] = [
     phoneNumber: '+37529-777-77-77',
     level: 'L1',
     skills: ['CSS', 'HTML'],
+    isReadyToRelocate: false,
     areasToRelocate: [],
   },
   {
@@ -21,6 +22,7 @@ export const users: IUser[] = [
     phoneNumber: '+37529-424-42-42',
     level: 'L2',
     skills: ['CSS', 'Git'],
+    isReadyToRelocate: true,
     areasToRelocate: ['France', 'Poland'],
   },
   {
@@ -31,6 +33,7 @@ export const users: IUser[] = [
     phoneNumber: '+37529-777-77-77',
     level: 'L3',
     skills: ['JavaScript', 'HTML', 'Angular'],
+    isReadyToRelocate: false,
     areasToRelocate: [],
   },
   {
@@ -41,6 +44,7 @@ export const users: IUser[] = [
     phoneNumber: '+37529-777-77-77',
     level: 'L3',
     skills: ['JavaScript', 'HTML', 'Git'],
+    isReadyToRelocate: true,
     areasToRelocate: ['Japan', 'China'],
   },
 ];

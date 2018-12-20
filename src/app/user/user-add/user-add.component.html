@@ -81,15 +81,12 @@
     </div>
 
     <p>
-      <mat-slide-toggle [checked]="!!currUser?.areasToRelocate.length"
-                        (change)="onReadyToRelocateChange($event)"
-                        #ready
-      >
+      <mat-slide-toggle formControlName="isReadyToRelocate">
         Ready to relocate
       </mat-slide-toggle>
     </p>
 
-    <p *ngIf="ready.checked">
+    <p *ngIf="form.get('isReadyToRelocate').value">
       <mat-form-field>
         <mat-select placeholder="Areas to relocate" formControlName="areasToRelocate" multiple>
           <mat-option *ngFor="let area of areas" [value]="area.title">{{area.title}}</mat-option>
