@@ -2,3 +2,12 @@ mat-card {
   margin: 20px;
   width: 300px;
 }
+
+button {
+  margin: 0 5px;
+}
+
+.btns {
+  display: flex;
+  justify-content: space-between;
+}

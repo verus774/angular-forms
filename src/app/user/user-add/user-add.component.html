@@ -97,13 +97,16 @@
       </mat-form-field>
     </p>
 
-    <button mat-raised-button color="accent" [disabled]="addUserForm.invalid || addUserForm.pristine">
-      Save
-    </button>
+    <div class="btns">
+      <button mat-raised-button color="accent" [disabled]="addUserForm.invalid || addUserForm.pristine">
+        Save
+      </button>
+
+      <div>
+        <button mat-raised-button (click)="onClearClick($event)" [disabled]="!currUser && addUserForm.pristine">Clear</button>
+        <button mat-raised-button (click)="onResetClick($event)" [disabled]="!currUser || addUserForm.pristine">Reset</button>
+      </div>
+    </div>
   </form>
-
-  <br>
-
-  <button mat-raised-button (click)="onClearClick()" [disabled]="!currUser && addUserForm.pristine">Clear</button>
 
 </mat-card>

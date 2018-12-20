@@ -46,7 +46,7 @@ export class UserAddComponent implements OnInit {
 
       this.userService.getCurrUser().subscribe(user => {
         this.currUser = user;
-        this.addUserForm.patchValue(user);
+        this.addUserForm.reset(user);
         this.setSkillsByLevel(user.level);
         this.addUserForm.setControl('skills', this.buildSkills(user.skills));
       });
@@ -123,9 +123,18 @@ export class UserAddComponent implements OnInit {
     }
   }
 
-  onClearClick() {
+  onClearClick(event: MouseEvent) {
+    event.preventDefault();
+
     this.currUser = null;
     this.ready.checked = false;
     this.addUserForm.reset(this.buildForm().value);
+  }
+
+  onResetClick(event: MouseEvent) {
+    event.preventDefault();
+
+    this.addUserForm.reset(this.currUser);
+    this.addUserForm.setControl('skills', this.buildSkills(this.currUser.skills));
   }
 }
