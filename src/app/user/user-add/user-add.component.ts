@@ -121,17 +121,17 @@ export class UserAddComponent implements OnInit {
       submitUser = this.userService.addUser(newUser);
     }
 
-    submitUser.subscribe(() => {
-      this.currUser = null;
-      this.addUserForm.reset();
-    });
+    submitUser.subscribe(() => this.clearForm());
+  }
+
+  private clearForm() {
+    this.currUser = null;
+    this.addUserForm.reset(this.buildForm().value);
   }
 
   onClearClick(event: MouseEvent) {
     event.preventDefault();
-
-    this.currUser = null;
-    this.addUserForm.reset(this.buildForm().value);
+    this.clearForm();
   }
 
   onResetClick(event: MouseEvent) {

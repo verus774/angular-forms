@@ -12,8 +12,8 @@
         >
 
         <mat-error *ngIf="form.get('firstName').hasError('required')">Required field</mat-error>
-        <mat-error *ngIf="form.get('firstName').hasError('minlength')">At
-          least {{form.get('firstName').errors.minlength.requiredLength}} characters
+        <mat-error *ngIf="form.get('firstName').hasError('minlength')">
+          At least {{form.get('firstName').errors.minlength.requiredLength}} characters
         </mat-error>
       </mat-form-field>
     </p>
@@ -27,8 +27,8 @@
         >
 
         <mat-error *ngIf="form.get('lastName').hasError('required')">Required field</mat-error>
-        <mat-error *ngIf="form.get('lastName').hasError('minlength')">At
-          least {{form.get('lastName').errors.minlength.requiredLength}} characters
+        <mat-error *ngIf="form.get('lastName').hasError('minlength')">
+          At least {{form.get('lastName').errors.minlength.requiredLength}} characters
         </mat-error>
       </mat-form-field>
     </p>
