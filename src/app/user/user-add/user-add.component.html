@@ -97,7 +97,7 @@
       </mat-form-field>
     </p>
 
-    <button mat-raised-button color="accent" [disabled]="!addUserForm.valid || (currUser && addUserForm.pristine)">
+    <button mat-raised-button color="accent" [disabled]="addUserForm.invalid || addUserForm.pristine">
       Save
     </button>
   </form>
