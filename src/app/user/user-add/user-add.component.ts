@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatSlideToggleChange} from '@angular/material';
+import {MatSlideToggle, MatSlideToggleChange} from '@angular/material';
 import {forkJoin, Observable} from 'rxjs';
 
 import {UserService} from '../user.service';
@@ -15,6 +15,8 @@ import {skillsValidator} from './skills.validator';
   styleUrls: ['./user-add.component.css']
 })
 export class UserAddComponent implements OnInit {
+  @ViewChild('ready') ready: MatSlideToggle;
+
   public addUserForm: FormGroup;
   public levels: ILevel[];
   public skills: string[];
@@ -35,7 +37,12 @@ export class UserAddComponent implements OnInit {
       [this.areas, this.levels] = value;
 
       this.skills = this.levels[0].skills;
-      this.buildForm();
+      this.addUserForm = this.buildForm();
+
+      this.addUserForm.get('level').valueChanges.subscribe(level => {
+        this.setSkillsByLevel(level);
+        this.addUserForm.setControl('skills', this.buildSkills());
+      });
 
       this.userService.getCurrUser().subscribe(user => {
         this.currUser = user;
@@ -46,8 +53,8 @@ export class UserAddComponent implements OnInit {
     });
   }
 
-  private buildForm() {
-    this.addUserForm = this.fb.group({
+  private buildForm(): FormGroup {
+    return this.addUserForm = this.fb.group({
       firstName: ['', [
         Validators.required,
         Validators.minLength(3),
@@ -69,11 +76,6 @@ export class UserAddComponent implements OnInit {
       ]],
       areasToRelocate: [[]],
       skills: this.buildSkills(),
-    });
-
-    this.addUserForm.get('level').valueChanges.subscribe(level => {
-      this.setSkillsByLevel(level);
-      this.addUserForm.setControl('skills', this.buildSkills());
     });
   }
 
@@ -119,5 +121,11 @@ export class UserAddComponent implements OnInit {
     if (!event.checked) {
       this.form.get('areasToRelocate').reset([]);
     }
+  }
+
+  onClearClick() {
+    this.currUser = null;
+    this.ready.checked = false;
+    this.addUserForm.reset(this.buildForm().value);
   }
 }

@@ -10,7 +10,9 @@
   </mat-chip-list>
 
   <div>
-    <button mat-raised-button color="accent" (click)="onEditClick(user)">Edit</button>
+    <button mat-icon-button (click)="onEditClick(user)">
+      <mat-icon aria-label="Edit user">edit</mat-icon>
+    </button>
 
     <button mat-icon-button color="warn" (click)="onRemoveClick(user.id)">
       <mat-icon aria-label="Remove user">delete</mat-icon>
