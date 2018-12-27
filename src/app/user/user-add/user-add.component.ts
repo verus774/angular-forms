@@ -23,6 +23,8 @@ export class UserAddComponent implements OnInit {
   public currUser: IUser;
   public matcher = new MaterialInputErrorStateMatcher();
 
+  ttt: (number | string)[] = [1, 2, '33'];
+
   constructor(private fb: FormBuilder, private userService: UserService) {
   }
 
@@ -141,5 +143,9 @@ export class UserAddComponent implements OnInit {
 
     this.addUserForm.reset(this.currUser);
     this.addUserForm.setControl('skills', this.buildSkills(this.currUser.skills));
+  }
+
+  trackByFn(index: number) {
+    return index;
   }
 }

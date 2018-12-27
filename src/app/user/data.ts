@@ -63,7 +63,7 @@ export const levels: ILevel[] = [
   {
     id: '3',
     title: 'L3',
-    skills: ['JavaScript', 'HTML', 'Git', 'NodeJS', 'Angular'],
+    skills: ['JavaScript', 'Git', 'NodeJS', 'Angular', 'HTML'],
   },
 ];
 

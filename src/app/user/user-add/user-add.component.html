@@ -76,7 +76,7 @@
 
     <div formArrayName="skills">
       <mat-label>Skills</mat-label>
-      <div *ngFor="let skill of skills; let i = index">
+      <div *ngFor="let skill of skills; let i = index; trackBy: trackByFn">
         <mat-checkbox [formControlName]="i">{{skill}}</mat-checkbox>
       </div>
       <mat-error *ngIf="form.get('skills').hasError('oneSkillRequired') && form.get('skills').dirty">
